@@ -1,19 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: medicure-prod
+  name: healthcare-app-prod
+  labels:
+    app: healthcare
+    env: prod
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: medicure
+      app: healthcare
+      env: prod
   template:
     metadata:
       labels:
-        app: medicure
+        app: healthcare
+        env: prod
     spec:
       containers:
-        - name: medicure
-          image:akku1999/ medicure-app
+        - name: healthcare-container
+          image: akku1999/healthcare:latest
           ports:
             - containerPort: 8080
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
